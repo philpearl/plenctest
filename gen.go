@@ -1,3 +1,3 @@
-package prototest
+package plenctest
 
-//go:generate protoc -I=$GOPATH/src/  --go_out=$GOPATH/src/ github.com/philpearl/plenc/prototest/test.proto
+//go:generate protoc -I=$GOPATH/src/  --go_out=$GOPATH/src/ github.com/philpearl/plenctest/test.proto

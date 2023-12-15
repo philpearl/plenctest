@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package plenc.prototest;
-option go_package = "github.com/philpearl/plenc/prototest";
-option java_package = "prototest";
+package plenctest;
+option go_package = "github.com/philpearl/plenctest";
+option java_package = "plenctest";
 
 import "google/protobuf/timestamp.proto";
 

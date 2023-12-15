@@ -1,13 +1,16 @@
-package prototest
+package plenctest
 
 import (
+	"encoding/json"
 	"testing"
 	"time"
 
+	"cloud.google.com/go/bigquery/storage/managedwriter/adapt"
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/philpearl/plenc"
 	"google.golang.org/protobuf/proto"
+	"google.golang.org/protobuf/reflect/protoregistry"
 	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
 )
 
@@ -153,4 +156,23 @@ func TestProto(t *testing.T) {
 			t.Fatalf("result not as hoped. %s", diff)
 		}
 	})
+}
+
+func TestDescribe(t *testing.T) {
+	mt, err := protoregistry.GlobalTypes.FindMessageByName("plenctest.Msg2")
+	if err != nil {
+		t.Fatal(err)
+	}
+	mrd := mt.Descriptor()
+	descriptorProto, err := adapt.NormalizeDescriptor(mrd)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	data, err := json.MarshalIndent(descriptorProto, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	t.Log(string(data))
 }
